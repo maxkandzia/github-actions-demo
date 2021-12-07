@@ -1,1 +1,2 @@
-# github-actions-demo
+# github-actions
+Deploy HelmChart to EKS-Cluster
