@@ -20,11 +20,12 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: eu-central-1
       
-      - run: helm repo add akhq https://akhq.io/     
-      
-      - name: helm deploy
+      - name: Download Helm Repo
         uses: koslib/helm-eks-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          command: helm upgrade --install akhq akhq/akhq -f akhq-values.yaml
+          command: helm repo add akhq https://akhq.io/
+        
+      - name: Deploy HelmChart
+        run: helm upgrade --install akhq akhq/akhq -f akhq-values.yaml
