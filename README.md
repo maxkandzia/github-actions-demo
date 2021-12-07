@@ -1,2 +1,2 @@
 # github-actions
-Deploy HelmChart to EKS-Cluster
+Deploy HelmChart to AWS EKS-Cluster
