@@ -19,7 +19,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: eu-central-1
-
+      
+      - run: helm repo add akhq https://akhq.io/     
+      
       - name: helm deploy
         uses: koslib/helm-eks-action@master
         env:
