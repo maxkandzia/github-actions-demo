@@ -11,7 +11,7 @@ jobs:
     
       - name: Check Helm Version
         run: |
-          helm --version
+          helm version
       
       - name: Download Helm Repo
         run: |
