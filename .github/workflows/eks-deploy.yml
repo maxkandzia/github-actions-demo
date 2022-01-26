@@ -8,6 +8,14 @@ jobs:
       image: alpine/helm:3.7.2
     steps:
       - uses: actions/checkout@v2
+      
+      - name: AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: eu-central-1
     
       - name: Check Helm Version
         run: |
@@ -16,5 +24,10 @@ jobs:
       - name: Download Helm Repo
         run: |
           helm repo add akhq https://akhq.io/
+          
+      - name: Deploy Helm Chart
+        run: |
+          helm upgrade --install akhq akhq/akhq --namespace tools --kubeconfig ${{ secrets.KUBE_CONFIG_DATA }}   
+          
 
     
