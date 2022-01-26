@@ -1,15 +1,17 @@
-name: deploy
-
-on:
-    push:
-        branches:
-            - main
-            - develop
+name: container
+on: push
 
 jobs:
-  deploy:
+  node-docker:
     runs-on: ubuntu-latest
+    container:
+      image: node:14.15.0-alpine3.12
     steps:
+      - name: Log the node version
+        run: |
+          node -v
+          cat /etc/os-release
+
       - uses: actions/checkout@v2
 
       - name: AWS Credentials
@@ -18,18 +20,4 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: eu-central-1
-      
-      - name: Download Helm Repo
-        uses: koslib/helm-eks-action@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        with:
-          command: helm repo add akhq https://akhq.io/
-        
-      - name: Deploy HelmChart
-        uses: koslib/helm-eks-action@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        with:
-          command: helm upgrade --install akhq akhq/akhq -f akhq-values.yaml --namespace tools
+          aws-region: eu-central-1       
