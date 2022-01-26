@@ -5,19 +5,16 @@ jobs:
   node-docker:
     runs-on: ubuntu-latest
     container:
-      image: node:14.15.0-alpine3.12
+      image: alpine/helm:3.7.2
     steps:
-      - name: Log the node version
-        run: |
-          node -v
-          cat /etc/os-release
-
       - uses: actions/checkout@v2
+    
+      - name: Check Helm Version
+        run: |
+          helm --version
+      
+      - name: Download Helm Repo
+        run: |
+          helm repo add akhq https://akhq.io/
 
-      - name: AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: eu-central-1       
+    
