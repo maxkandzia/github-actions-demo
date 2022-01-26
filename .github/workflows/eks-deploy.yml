@@ -2,7 +2,7 @@ name: container
 on: push
 
 jobs:
-  node-docker:
+  helm-docker:
     runs-on: ubuntu-latest
     container:
       image: alpine/helm:3.7.2
