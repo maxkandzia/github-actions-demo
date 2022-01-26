@@ -5,17 +5,9 @@ jobs:
   helm-docker:
     runs-on: ubuntu-latest
     container:
-      image: alpine/helm:3.7.2
+      image: dockerkam47722/helm-eks-action:1.0.0
     steps:
       - uses: actions/checkout@v2
-      
-      - name: AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: eu-central-1
     
       - name: Check Helm Version
         run: |
